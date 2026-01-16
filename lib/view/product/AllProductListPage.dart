@@ -1,4 +1,5 @@
 import 'package:e_commerce_app/controller/CartController.dart';
+import 'package:e_commerce_app/model/product_model.dart';
 import 'package:e_commerce_app/controller/product/ProductController.dart';
 import 'package:e_commerce_app/routes/AppRoutes.dart';
 import 'package:e_commerce_app/widget/home/ProductCard.dart';
@@ -63,41 +64,93 @@ class _AllProductListPageState extends State<AllProductListPage> {
                     border: Border.all(
                         color: theme.colorScheme.onSurface.withOpacity(0.0)),
                   ),
-                  child: TextField(
-                    controller: _searchController,
-                    textInputAction: TextInputAction.search,
-                    onSubmitted: (query) {
-                      productController.fetchProductsByQuery(query);
-                    },
-                    style: GoogleFonts.roboto(
-                        color: theme.colorScheme.onSurface, fontSize: 14),
-                    decoration: InputDecoration(
-                      hintText: "Search for products",
-                      hintStyle: GoogleFonts.roboto(
-                          color: theme.colorScheme.onSurface.withOpacity(0.6),
-                          fontSize: 14),
-                      prefixIcon: Icon(Icons.search,
-                          color: theme.colorScheme.onSurface.withOpacity(0.6),
-                          size: 20),
-                      suffixIcon: Obx(() {
-                        // Listen to currentSearchQuery to toggle clear icon
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    return Autocomplete<Product>(
+                      optionsBuilder: (TextEditingValue textEditingValue) {
                         return productController
-                                .currentSearchQuery.value.isNotEmpty
-                            ? IconButton(
-                                icon: Icon(Icons.close,
-                                    size: 18,
-                                    color: theme.colorScheme.onSurface),
-                                onPressed: () {
-                                  _searchController.clear();
-                                  productController.fetchProductsByQuery('');
+                            .getSearchSuggestions(textEditingValue.text);
+                      },
+                      displayStringForOption: (Product option) => option.name,
+                      onSelected: (Product selection) {
+                        productController.fetchProductsByQuery(selection.name);
+                      },
+                      fieldViewBuilder: (context, textEditingController,
+                          focusNode, onFieldSubmitted) {
+                        // Sync controllers if needed but Autocomplete handles its own.
+                        // We might want to keep reference to clear it later?
+                        // For now, let's just use the one provided by builder.
+                        return TextField(
+                          controller: textEditingController,
+                          focusNode: focusNode,
+                          textInputAction: TextInputAction.search,
+                          onSubmitted: (query) {
+                            productController.fetchProductsByQuery(query);
+                          },
+                          style: GoogleFonts.roboto(
+                              color: theme.colorScheme.onSurface, fontSize: 14),
+                          decoration: InputDecoration(
+                            hintText: "Search for products",
+                            hintStyle: GoogleFonts.roboto(
+                                color: theme.colorScheme.onSurface
+                                    .withOpacity(0.6),
+                                fontSize: 14),
+                            prefixIcon: Icon(Icons.search,
+                                color: theme.colorScheme.onSurface
+                                    .withOpacity(0.6),
+                                size: 20),
+                            suffixIcon: Obx(() {
+                              return productController
+                                      .currentSearchQuery.value.isNotEmpty
+                                  ? IconButton(
+                                      icon: Icon(Icons.close,
+                                          size: 18,
+                                          color: theme.colorScheme.onSurface),
+                                      onPressed: () {
+                                        textEditingController.clear();
+                                        productController
+                                            .fetchProductsByQuery('');
+                                      },
+                                    )
+                                  : const SizedBox.shrink();
+                            }),
+                            border: InputBorder.none,
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 0),
+                          ),
+                        );
+                      },
+                      optionsViewBuilder: (context, onSelected, options) {
+                        return Align(
+                          alignment: Alignment.topLeft,
+                          child: Material(
+                            elevation: 4,
+                            child: Container(
+                              width: constraints.maxWidth,
+                              color: theme.colorScheme.surface,
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                itemCount: options.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final Product option =
+                                      options.elementAt(index);
+                                  return ListTile(
+                                    title: Text(option.name,
+                                        style: GoogleFonts.roboto(
+                                            color:
+                                                theme.colorScheme.onSurface)),
+                                    onTap: () {
+                                      onSelected(option);
+                                    },
+                                  );
                                 },
-                              )
-                            : const SizedBox.shrink();
-                      }),
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                    ),
-                  ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }),
                 ),
               ),
               const SizedBox(width: 12),

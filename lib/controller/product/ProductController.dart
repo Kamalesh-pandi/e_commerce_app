@@ -168,4 +168,15 @@ class ProductController extends GetxController {
         .map((p) => _calculateSellingPrice(p))
         .reduce((a, b) => a > b ? a : b);
   }
+
+  // --- Search Suggestions ---
+  Future<List<Product>> getSearchSuggestions(String query) async {
+    if (query.isEmpty) return [];
+    try {
+      final productService = ProductService();
+      return await productService.getProductsByQuery(query);
+    } catch (e) {
+      return [];
+    }
+  }
 }

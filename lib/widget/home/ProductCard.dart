@@ -43,8 +43,10 @@ class ProductCard extends StatelessWidget {
                         product.imageUrl,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.image_not_supported,
-                                color: Colors.grey),
+                            Image.asset(
+                          "assets/images/not_found_image.webp",
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
