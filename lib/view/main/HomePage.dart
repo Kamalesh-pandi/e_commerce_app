@@ -14,18 +14,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            HomeHeader(),
-            SizedBox(height: 20),
-            HomeBanner(),
-            SizedBox(height: 20),
-            PopularProductGrid(),
-            SizedBox(height: 100),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              HomeHeader(),
+              SizedBox(height: 20),
+              HomeBanner(),
+              SizedBox(height: 20),
+              PopularProductGrid(),
+              SizedBox(height: 100),
+            ],
+          ),
         ),
       ),
     );

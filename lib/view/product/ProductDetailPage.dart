@@ -46,7 +46,8 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
     final List<String> displayImages =
         product.imageUrls.isNotEmpty ? product.imageUrls : [product.imageUrl];
 
-    return Scaffold(
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor,
         appBar: AppBar(
           scrolledUnderElevation: 0,
@@ -673,7 +674,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
               ),
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   Widget _buildOfferItem(ThemeData theme, String text) {

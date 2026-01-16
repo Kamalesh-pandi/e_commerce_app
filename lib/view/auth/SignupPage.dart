@@ -18,216 +18,219 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor,
-        automaticallyImplyLeading: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: theme.colorScheme.onSurface,
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          backgroundColor: theme.scaffoldBackgroundColor,
+          automaticallyImplyLeading: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: theme.colorScheme.onSurface,
+            ),
+            onPressed: () {
+              Get.back();
+            },
           ),
-          onPressed: () {
-            Get.back();
-          },
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            FadeInDown(
-              delay: const Duration(milliseconds: 500),
-              child: SizedBox(
-                height: size.height * 0.19,
-                child: Center(
-                    child: Lottie.asset(
-                  "assets/animations/login_logo.json",
-                  height: size.height * 0.24,
-                  fit: BoxFit.contain,
-                )),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              FadeInDown(
+                delay: const Duration(milliseconds: 500),
+                child: SizedBox(
+                  height: size.height * 0.19,
+                  child: Center(
+                      child: Lottie.asset(
+                    "assets/animations/login_logo.json",
+                    height: size.height * 0.24,
+                    fit: BoxFit.contain,
+                  )),
+                ),
               ),
-            ),
-            FadeInDown(
-              delay: const Duration(milliseconds: 500),
-              child: Container(
-                width: size.width * 0.9,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  "Register",
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    color: theme.colorScheme.onSurface,
-                    fontSize: 26,
+              FadeInDown(
+                delay: const Duration(milliseconds: 500),
+                child: Container(
+                  width: size.width * 0.9,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    "Register",
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      color: theme.colorScheme.onSurface,
+                      fontSize: 26,
+                    ),
                   ),
                 ),
               ),
-            ),
-            FadeInDown(
-              delay: const Duration(milliseconds: 500),
-              child: Container(
-                width: size.width * 0.9,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  "Register to continue using the app",
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
-                    fontSize: 16,
+              FadeInDown(
+                delay: const Duration(milliseconds: 500),
+                child: Container(
+                  width: size.width * 0.9,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    "Register to continue using the app",
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      color: theme.colorScheme.onSurface.withOpacity(0.6),
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: size.height * 0.01),
-            FadeInUp(
-              delay: const Duration(milliseconds: 500),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: size.width * 0.9,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(
-                      "Name",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                  ),
-                  _buildTextField(
-                    theme: theme,
-                    controller: signupController.nameController,
-                    label: "Name",
-                    icon: Icons.person,
-                    hintText: "Enter your name",
-                    keyboardType: TextInputType.name,
-                    size: size,
-                  ),
-                  SizedBox(height: size.height * 0.01),
-                  Container(
-                    width: size.width * 0.9,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(
-                      "Phone",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                  ),
-                  _buildTextField(
-                    theme: theme,
-                    controller: signupController.phoneController,
-                    label: "Phone",
-                    icon: Icons.phone,
-                    hintText: "Enter your phone number",
-                    keyboardType: TextInputType.phone,
-                    size: size,
-                  ),
-                  SizedBox(height: size.height * 0.01),
-                  Container(
-                    width: size.width * 0.9,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(
-                      "Email",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                  ),
-                  _buildTextField(
-                    theme: theme,
-                    controller: signupController.emailController,
-                    label: "Email",
-                    icon: Icons.email,
-                    hintText: "Enter your email",
-                    keyboardType: TextInputType.emailAddress,
-                    size: size,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  Container(
-                    width: size.width * 0.9,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(
-                      "Password",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                  ),
-                  _buildPasswordTextField(
-                    theme: theme,
-                    controller: signupController.passwordController,
-                    label: "Password",
-                    icon: Icons.lock,
-                    hintText: "Enter your password",
-                    keyboardType: TextInputType.visiblePassword,
-                    size: size,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.01,
-                  ),
-                  Container(
-                    width: size.width * 0.9,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(
-                      "Confirm Password",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                  ),
-                  _buildPasswordTextField(
-                    theme: theme,
-                    controller: signupController.confirmPasswordController,
-                    label: "Confirm Password",
-                    icon: Icons.lock,
-                    hintText: "Enter your confirm password",
-                    keyboardType: TextInputType.visiblePassword,
-                    size: size,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: size.height * 0.05),
-            FadeInUp(
-              delay: const Duration(milliseconds: 500),
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      signupController.signup();
-                    },
-                    child: Obx(
-                      () => Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: theme.colorScheme.primary),
-                          color: theme.colorScheme.primary,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        height: size.height * 0.065,
-                        width: size.width * 0.9,
-                        child: signupController.isLoading.value
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                color: Colors.white,
-                              ))
-                            : Center(
-                                child: Text(
-                                "Register",
-                                style: theme.textTheme.bodyLarge?.copyWith(
-                                  color: theme.colorScheme.surface,
-                                  fontSize: 16,
-                                ),
-                              )),
+              SizedBox(height: size.height * 0.01),
+              FadeInUp(
+                delay: const Duration(milliseconds: 500),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: size.width * 0.9,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Text(
+                        "Name",
+                        style: theme.textTheme.titleLarge,
                       ),
                     ),
-                  ),
-                  SizedBox(height: size.height * 0.05),
-                ],
+                    _buildTextField(
+                      theme: theme,
+                      controller: signupController.nameController,
+                      label: "Name",
+                      icon: Icons.person,
+                      hintText: "Enter your name",
+                      keyboardType: TextInputType.name,
+                      size: size,
+                    ),
+                    SizedBox(height: size.height * 0.01),
+                    Container(
+                      width: size.width * 0.9,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Text(
+                        "Phone",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
+                    _buildTextField(
+                      theme: theme,
+                      controller: signupController.phoneController,
+                      label: "Phone",
+                      icon: Icons.phone,
+                      hintText: "Enter your phone number",
+                      keyboardType: TextInputType.phone,
+                      size: size,
+                    ),
+                    SizedBox(height: size.height * 0.01),
+                    Container(
+                      width: size.width * 0.9,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Text(
+                        "Email",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
+                    _buildTextField(
+                      theme: theme,
+                      controller: signupController.emailController,
+                      label: "Email",
+                      icon: Icons.email,
+                      hintText: "Enter your email",
+                      keyboardType: TextInputType.emailAddress,
+                      size: size,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+                    Container(
+                      width: size.width * 0.9,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Text(
+                        "Password",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
+                    _buildPasswordTextField(
+                      theme: theme,
+                      controller: signupController.passwordController,
+                      label: "Password",
+                      icon: Icons.lock,
+                      hintText: "Enter your password",
+                      keyboardType: TextInputType.visiblePassword,
+                      size: size,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+                    Container(
+                      width: size.width * 0.9,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Text(
+                        "Confirm Password",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
+                    _buildPasswordTextField(
+                      theme: theme,
+                      controller: signupController.confirmPasswordController,
+                      label: "Confirm Password",
+                      icon: Icons.lock,
+                      hintText: "Enter your confirm password",
+                      keyboardType: TextInputType.visiblePassword,
+                      size: size,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: size.height * 0.05),
+              FadeInUp(
+                delay: const Duration(milliseconds: 500),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        signupController.signup();
+                      },
+                      child: Obx(
+                        () => Container(
+                          decoration: BoxDecoration(
+                            border:
+                                Border.all(color: theme.colorScheme.primary),
+                            color: theme.colorScheme.primary,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          height: size.height * 0.065,
+                          width: size.width * 0.9,
+                          child: signupController.isLoading.value
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ))
+                              : Center(
+                                  child: Text(
+                                  "Register",
+                                  style: theme.textTheme.bodyLarge?.copyWith(
+                                    color: theme.colorScheme.surface,
+                                    fontSize: 16,
+                                  ),
+                                )),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: size.height * 0.05),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -17,96 +17,98 @@ class CartPage extends StatelessWidget {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        title: Text(
-          'My Cart',
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-            color: theme.colorScheme.onPrimary,
-          ),
-        ),
-        elevation: 1,
-        backgroundColor: theme.colorScheme.primary,
-      ),
-      body: Obx(() {
-        if (cartController.cartItems.isEmpty) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.shopping_cart_outlined,
-                  size: 100,
-                  color: Colors.grey[300],
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  'Your cart is empty!',
-                  style: GoogleFonts.poppins(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  'Explore products and add them to your cart.',
-                  style: GoogleFonts.roboto(
-                    color: Colors.grey[600],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () => Get.offAllNamed(AppRoutes.homePage),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 12),
-                    backgroundColor: theme.colorScheme.primary,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    'Shop Now',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          title: Text(
+            'My Cart',
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+              color: theme.colorScheme.onPrimary,
             ),
-          );
-        }
-
-        return Stack(
-          children: [
-            SingleChildScrollView(
-              padding: const EdgeInsets.only(bottom: 80),
+          ),
+          elevation: 1,
+          backgroundColor: theme.colorScheme.primary,
+        ),
+        body: Obx(() {
+          if (cartController.cartItems.isEmpty) {
+            return Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildAddressStrip(theme),
-                  ...cartController.cartItems.map((item) {
-                    return _buildCartItem(
-                        size, context, item, cartController, theme);
-                  }).toList(),
-                  _buildPriceDetails(cartController, theme),
-                  _buildSafePayments(theme),
+                  Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 100,
+                    color: Colors.grey[300],
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Your cart is empty!',
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Explore products and add them to your cart.',
+                    style: GoogleFonts.roboto(
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () => Get.offAllNamed(AppRoutes.homePage),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 12),
+                      backgroundColor: theme.colorScheme.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Text(
+                      'Shop Now',
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
                 ],
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: _buildBottomBar(orderController, cartController, theme),
-            ),
-          ],
-        );
-      }),
+            );
+          }
+
+          return Stack(
+            children: [
+              SingleChildScrollView(
+                padding: const EdgeInsets.only(bottom: 80),
+                child: Column(
+                  children: [
+                    _buildAddressStrip(theme),
+                    ...cartController.cartItems.map((item) {
+                      return _buildCartItem(
+                          size, context, item, cartController, theme);
+                    }).toList(),
+                    _buildPriceDetails(cartController, theme),
+                    _buildSafePayments(theme),
+                  ],
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: _buildBottomBar(orderController, cartController, theme),
+              ),
+            ],
+          );
+        }),
+      ),
     );
   }
 

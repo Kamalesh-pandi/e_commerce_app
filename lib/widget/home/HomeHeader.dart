@@ -24,9 +24,9 @@ class _HomeHeaderState extends State<HomeHeader> {
       clipBehavior: Clip.none,
       children: [
         Container(
-          height: size.height * 0.35,
+          constraints: BoxConstraints(minHeight: size.height * 0.1),
           width: double.infinity,
-          padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
+          padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
           decoration: BoxDecoration(
             color: theme.colorScheme.primary,
             borderRadius: const BorderRadius.only(

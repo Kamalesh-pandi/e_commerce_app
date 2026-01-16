@@ -14,220 +14,224 @@ class AddressPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final UserController userController = Get.find<UserController>();
 
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: Text(
-          'My Addresses',
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-            color: theme.colorScheme.onPrimary,
-          ),
-        ),
-        backgroundColor: theme.colorScheme.primary,
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: Obx(() {
-        if (userController.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        final addresses = userController.user.value?.addresses ?? [];
-
-        if (addresses.isEmpty) {
-          return Center(
-            child: Text(
-              'No addresses found.',
-              style: GoogleFonts.poppins(color: Colors.grey),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        appBar: AppBar(
+          title: Text(
+            'My Addresses',
+            style: GoogleFonts.poppins(
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+              color: theme.colorScheme.onPrimary,
             ),
-          );
-        }
+          ),
+          backgroundColor: theme.colorScheme.primary,
+          elevation: 0,
+          centerTitle: true,
+        ),
+        body: Obx(() {
+          if (userController.isLoading.value) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-        return ListView.builder(
-          padding: const EdgeInsets.all(20),
-          itemCount: addresses.length,
-          itemBuilder: (context, index) {
-            final address = addresses[index];
-            return Card(
-              margin: const EdgeInsets.only(bottom: 16),
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-                side: address.isDefault == true
-                    ? BorderSide(color: theme.colorScheme.primary, width: 2)
-                    : BorderSide(color: Colors.grey),
+          final addresses = userController.user.value?.addresses ?? [];
+
+          if (addresses.isEmpty) {
+            return Center(
+              child: Text(
+                'No addresses found.',
+                style: GoogleFonts.poppins(color: Colors.grey),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              address.type == 'Work'
-                                  ? Icons.work_outline
-                                  : Icons.home_outlined,
-                              color: theme.colorScheme.primary,
-                              size: 20,
-                            ),
-                            SizedBox(width: size.width * 0.02),
-                            Text(
-                              address.type ?? 'Home',
-                              style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 16,
-                                color: theme.colorScheme.onSurface,
-                              ),
-                            ),
-                          ],
-                        ),
-                        if (address.isDefault == true)
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: theme.colorScheme.primary.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Text(
-                              'Default',
-                              style: GoogleFonts.poppins(
-                                color: theme.colorScheme.primary,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          )
-                        else
-                          Radio<int>(
-                            value: address.id!,
-                            groupValue: addresses
-                                .firstWhere((a) => a.isDefault == true,
-                                    orElse: () => Address())
-                                .id,
-                            onChanged: (val) {
-                              if (val != null) {
-                                userController.setDefaultAddress(val);
-                              }
-                            },
-                            activeColor: theme.colorScheme.primary,
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                          ),
-                      ],
-                    ),
-                    const Divider(height: 24),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.location_on_outlined,
-                            size: 18, color: Colors.grey[600]),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+            );
+          }
+
+          return ListView.builder(
+            padding: const EdgeInsets.all(20),
+            itemCount: addresses.length,
+            itemBuilder: (context, index) {
+              final address = addresses[index];
+              return Card(
+                margin: const EdgeInsets.only(bottom: 16),
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: address.isDefault == true
+                      ? BorderSide(color: theme.colorScheme.primary, width: 2)
+                      : BorderSide(color: Colors.grey),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
                             children: [
+                              Icon(
+                                address.type == 'Work'
+                                    ? Icons.work_outline
+                                    : Icons.home_outlined,
+                                color: theme.colorScheme.primary,
+                                size: 20,
+                              ),
+                              SizedBox(width: size.width * 0.02),
                               Text(
-                                address.name ?? '',
+                                address.type ?? 'Home',
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 14,
+                                  fontSize: 16,
+                                  color: theme.colorScheme.onSurface,
                                 ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                '${address.street}, ${address.landmark ?? ''}',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 13, color: Colors.grey[400]),
-                              ),
-                              Text(
-                                '${address.city}, ${address.state} - ${address.pinCode}',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 13, color: Colors.grey[400]),
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Icon(Icons.phone_outlined,
-                                      size: 16, color: Colors.grey[400]),
-                                  const SizedBox(width: 6),
-                                  Text(
-                                    address.phoneNumber ?? '',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 13, color: Colors.grey[400]),
-                                  ),
-                                ],
                               ),
                             ],
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        OutlinedButton.icon(
-                          onPressed: () {
-                            _showAddressDialog(context, userController,
-                                address: address);
-                          },
-                          icon: const Icon(Icons.edit, size: 16),
-                          label: Text('Edit',
-                              style: GoogleFonts.poppins(
-                                  color: theme.colorScheme.primary)),
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            side: BorderSide(
+                          if (address.isDefault == true)
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 4),
+                              decoration: BoxDecoration(
                                 color:
-                                    theme.colorScheme.primary.withOpacity(0.3)),
-                            foregroundColor: theme.colorScheme.onSurface,
+                                    theme.colorScheme.primary.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Text(
+                                'Default',
+                                style: GoogleFonts.poppins(
+                                  color: theme.colorScheme.primary,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            )
+                          else
+                            Radio<int>(
+                              value: address.id!,
+                              groupValue: addresses
+                                  .firstWhere((a) => a.isDefault == true,
+                                      orElse: () => Address())
+                                  .id,
+                              onChanged: (val) {
+                                if (val != null) {
+                                  userController.setDefaultAddress(val);
+                                }
+                              },
+                              activeColor: theme.colorScheme.primary,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                            ),
+                        ],
+                      ),
+                      const Divider(height: 24),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Icon(Icons.location_on_outlined,
+                              size: 18, color: Colors.grey[600]),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  address.name ?? '',
+                                  style: GoogleFonts.poppins(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  '${address.street}, ${address.landmark ?? ''}',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 13, color: Colors.grey[400]),
+                                ),
+                                Text(
+                                  '${address.city}, ${address.state} - ${address.pinCode}',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 13, color: Colors.grey[400]),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  children: [
+                                    Icon(Icons.phone_outlined,
+                                        size: 16, color: Colors.grey[400]),
+                                    const SizedBox(width: 6),
+                                    Text(
+                                      address.phoneNumber ?? '',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 13,
+                                          color: Colors.grey[400]),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: 12),
-                        OutlinedButton.icon(
-                          onPressed: () {
-                            if (address.id != null) {
-                              userController.removeAddress(address.id!);
-                            }
-                          },
-                          icon: const Icon(Icons.delete_outline,
-                              size: 16, color: Colors.red),
-                          label: Text('Delete',
-                              style: GoogleFonts.poppins(color: Colors.red)),
-                          style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 8),
-                            side:
-                                BorderSide(color: Colors.red.withOpacity(0.3)),
-                            foregroundColor: Colors.red,
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          OutlinedButton.icon(
+                            onPressed: () {
+                              _showAddressDialog(context, userController,
+                                  address: address);
+                            },
+                            icon: const Icon(Icons.edit, size: 16),
+                            label: Text('Edit',
+                                style: GoogleFonts.poppins(
+                                    color: theme.colorScheme.primary)),
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              side: BorderSide(
+                                  color: theme.colorScheme.primary
+                                      .withOpacity(0.3)),
+                              foregroundColor: theme.colorScheme.onSurface,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          const SizedBox(width: 12),
+                          OutlinedButton.icon(
+                            onPressed: () {
+                              if (address.id != null) {
+                                userController.removeAddress(address.id!);
+                              }
+                            },
+                            icon: const Icon(Icons.delete_outline,
+                                size: 16, color: Colors.red),
+                            label: Text('Delete',
+                                style: GoogleFonts.poppins(color: Colors.red)),
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              side: BorderSide(
+                                  color: Colors.red.withOpacity(0.3)),
+                              foregroundColor: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
+              );
+            },
+          );
+        }),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            _showAddressDialog(context, userController);
           },
-        );
-      }),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          _showAddressDialog(context, userController);
-        },
-        backgroundColor: theme.colorScheme.primary,
-        icon: const Icon(Icons.add, color: Colors.white),
-        label: Text('Add New Address',
-            style: GoogleFonts.poppins(
-                color: Colors.white, fontWeight: FontWeight.w600)),
+          backgroundColor: theme.colorScheme.primary,
+          icon: const Icon(Icons.add, color: Colors.white),
+          label: Text('Add New Address',
+              style: GoogleFonts.poppins(
+                  color: Colors.white, fontWeight: FontWeight.w600)),
+        ),
       ),
     );
   }

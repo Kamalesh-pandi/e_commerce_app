@@ -19,135 +19,140 @@ class OrderHistoryPage extends StatelessWidget {
       orderController.fetchUserOrders();
     });
 
-    return Scaffold(
-      backgroundColor: theme.colorScheme.surface, // Flipkart-like background
-      appBar: AppBar(
-        title: Text(
-          'My Orders',
-          style: GoogleFonts.roboto(
-            fontWeight: FontWeight.w600,
-            fontSize: 20,
-            color: theme.colorScheme.onPrimary,
-          ),
-        ),
-        backgroundColor: theme.colorScheme.primary, // Flipkart blue
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: theme.colorScheme.onPrimary),
-          onPressed: () => Get.back(),
-        ),
-      ),
-      body: Column(
-        children: [
-          // Search Bar & Filters Area
-          Container(
-            color: theme.colorScheme.surface,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-            child: Column(
-              children: [
-                // Filter Chips
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Obx(() => Row(
-                        children: [
-                          _buildFilterChip(
-                              theme,
-                              'All',
-                              orderController.selectedStatusFilter.value ==
-                                  'All',
-                              () => orderController.updateStatusFilter('All')),
-                          const SizedBox(width: 8),
-                          _buildFilterChip(
-                              theme,
-                              'Delivered',
-                              orderController.selectedStatusFilter.value ==
-                                  'Delivered',
-                              () => orderController
-                                  .updateStatusFilter('Delivered')),
-                          const SizedBox(width: 8),
-                          _buildFilterChip(
-                              theme,
-                              'Cancelled',
-                              orderController.selectedStatusFilter.value ==
-                                  'Cancelled',
-                              () => orderController
-                                  .updateStatusFilter('Cancelled')),
-                          const SizedBox(width: 8),
-                          _buildFilterChip(
-                              theme,
-                              'Processing',
-                              orderController.selectedStatusFilter.value ==
-                                  'Processing',
-                              () => orderController
-                                  .updateStatusFilter('Processing')),
-                        ],
-                      )),
-                ),
-              ],
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: theme.colorScheme.surface, // Flipkart-like background
+        appBar: AppBar(
+          title: Text(
+            'My Orders',
+            style: GoogleFonts.roboto(
+              fontWeight: FontWeight.w600,
+              fontSize: 20,
+              color: theme.colorScheme.onPrimary,
             ),
           ),
-          const SizedBox(height: 6), // Separator
-
-          // Order List
-          Expanded(
-            child: Obx(() {
-              if (orderController.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
-              }
-
-              // Use filteredOrders instead of userOrders directly
-              final orders = orderController.filteredOrders;
-
-              if (orders.isEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.list_alt,
-                          size: 80, color: theme.colorScheme.onSurface),
-                      const SizedBox(height: 16),
-                      Text(
-                        'No orders found',
-                        style: GoogleFonts.roboto(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: theme.colorScheme.onSurface),
-                      ),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        onPressed: () => Get.offAllNamed(AppRoutes.homePage),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: theme.colorScheme.primary,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4)),
-                        ),
-                        child: Text('Start Shopping',
-                            style: TextStyle(color: theme.colorScheme.surface)),
-                      )
-                    ],
-                  ),
-                );
-              }
-
-              return ListView.separated(
-                itemCount: orders.length,
-                separatorBuilder: (context, index) => const SizedBox(height: 6),
-                itemBuilder: (context, index) {
-                  final order = orders[index];
-                  if (order.items == null || order.items!.isEmpty)
-                    return const SizedBox();
-
-                  return Column(
-                    children: order.items!
-                        .map((item) =>
-                            _buildOrderCard(theme, context, order, item))
-                        .toList(),
-                  );
-                },
-              );
-            }),
+          backgroundColor: theme.colorScheme.primary, // Flipkart blue
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: theme.colorScheme.onPrimary),
+            onPressed: () => Get.back(),
           ),
-        ],
+        ),
+        body: Column(
+          children: [
+            // Search Bar & Filters Area
+            Container(
+              color: theme.colorScheme.surface,
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              child: Column(
+                children: [
+                  // Filter Chips
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Obx(() => Row(
+                          children: [
+                            _buildFilterChip(
+                                theme,
+                                'All',
+                                orderController.selectedStatusFilter.value ==
+                                    'All',
+                                () =>
+                                    orderController.updateStatusFilter('All')),
+                            const SizedBox(width: 8),
+                            _buildFilterChip(
+                                theme,
+                                'Delivered',
+                                orderController.selectedStatusFilter.value ==
+                                    'Delivered',
+                                () => orderController
+                                    .updateStatusFilter('Delivered')),
+                            const SizedBox(width: 8),
+                            _buildFilterChip(
+                                theme,
+                                'Cancelled',
+                                orderController.selectedStatusFilter.value ==
+                                    'Cancelled',
+                                () => orderController
+                                    .updateStatusFilter('Cancelled')),
+                            const SizedBox(width: 8),
+                            _buildFilterChip(
+                                theme,
+                                'Processing',
+                                orderController.selectedStatusFilter.value ==
+                                    'Processing',
+                                () => orderController
+                                    .updateStatusFilter('Processing')),
+                          ],
+                        )),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 6), // Separator
+
+            // Order List
+            Expanded(
+              child: Obx(() {
+                if (orderController.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+
+                // Use filteredOrders instead of userOrders directly
+                final orders = orderController.filteredOrders;
+
+                if (orders.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.list_alt,
+                            size: 80, color: theme.colorScheme.onSurface),
+                        const SizedBox(height: 16),
+                        Text(
+                          'No orders found',
+                          style: GoogleFonts.roboto(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: theme.colorScheme.onSurface),
+                        ),
+                        const SizedBox(height: 8),
+                        ElevatedButton(
+                          onPressed: () => Get.offAllNamed(AppRoutes.homePage),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: theme.colorScheme.primary,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4)),
+                          ),
+                          child: Text('Start Shopping',
+                              style:
+                                  TextStyle(color: theme.colorScheme.surface)),
+                        )
+                      ],
+                    ),
+                  );
+                }
+
+                return ListView.separated(
+                  itemCount: orders.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 6),
+                  itemBuilder: (context, index) {
+                    final order = orders[index];
+                    if (order.items == null || order.items!.isEmpty)
+                      return const SizedBox();
+
+                    return Column(
+                      children: order.items!
+                          .map((item) =>
+                              _buildOrderCard(theme, context, order, item))
+                          .toList(),
+                    );
+                  },
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -19,207 +19,210 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
+    return SafeArea(
+      child: Scaffold(
         backgroundColor: theme.scaffoldBackgroundColor,
-        automaticallyImplyLeading: true,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: theme.colorScheme.onSurface,
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          backgroundColor: theme.scaffoldBackgroundColor,
+          automaticallyImplyLeading: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: theme.colorScheme.onSurface,
+            ),
+            onPressed: () {
+              Get.back();
+            },
           ),
-          onPressed: () {
-            Get.back();
-          },
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            FadeInDown(
-              delay: const Duration(milliseconds: 500),
-              child: Container(
-                height: size.height * 0.2,
-                child: Center(
-                    child: Lottie.asset(
-                  "assets/animations/login_logo.json",
-                  height: size.height * 0.24,
-                  fit: BoxFit.contain,
-                )),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              FadeInDown(
+                delay: const Duration(milliseconds: 500),
+                child: Container(
+                  height: size.height * 0.2,
+                  child: Center(
+                      child: Lottie.asset(
+                    "assets/animations/login_logo.json",
+                    height: size.height * 0.24,
+                    fit: BoxFit.contain,
+                  )),
+                ),
               ),
-            ),
-            SizedBox(height: size.height * 0.01),
-            FadeInDown(
-              delay: const Duration(milliseconds: 500),
-              child: Container(
-                width: size.width * 0.9,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  "Login",
-                  style: theme.textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    color: theme.colorScheme.onSurface,
-                    fontSize: 26,
+              SizedBox(height: size.height * 0.01),
+              FadeInDown(
+                delay: const Duration(milliseconds: 500),
+                child: Container(
+                  width: size.width * 0.9,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    "Login",
+                    style: theme.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      color: theme.colorScheme.onSurface,
+                      fontSize: 26,
+                    ),
                   ),
                 ),
               ),
-            ),
-            FadeInDown(
-              delay: const Duration(milliseconds: 500),
-              child: Container(
-                width: size.width * 0.9,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  "Login to continue using the app",
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    fontFamily: GoogleFonts.poppins().fontFamily,
-                    color: theme.colorScheme.onSurface.withOpacity(0.6),
-                    fontSize: 16,
+              FadeInDown(
+                delay: const Duration(milliseconds: 500),
+                child: Container(
+                  width: size.width * 0.9,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    "Login to continue using the app",
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      fontFamily: GoogleFonts.poppins().fontFamily,
+                      color: theme.colorScheme.onSurface.withOpacity(0.6),
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: size.height * 0.03),
-            FadeInUp(
-              delay: const Duration(milliseconds: 500),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: size.width * 0.9,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(
-                      "Email",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                  ),
-                  _buildTextField(
-                    theme: theme,
-                    controller: loginController.emailController,
-                    label: "Email",
-                    icon: Icons.email,
-                    hintText: "Enter your email",
-                    keyboardType: TextInputType.emailAddress,
-                    size: size,
-                  ),
-                  SizedBox(
-                    height: size.height * 0.03,
-                  ),
-                  Container(
-                    width: size.width * 0.9,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Text(
-                      "Password",
-                      style: theme.textTheme.titleLarge,
-                    ),
-                  ),
-                  _buildPasswordTextField(
-                    theme: theme,
-                    controller: loginController.passwordController,
-                    label: "Password",
-                    icon: Icons.lock,
-                    hintText: "Enter your password",
-                    keyboardType: TextInputType.visiblePassword,
-                    size: size,
-                  ),
-                  Container(
-                    width: size.width * 0.9,
-                    child: Align(
-                      alignment: AlignmentDirectional.centerEnd,
-                      child: TextButton(
-                          onPressed: () {
-                            Get.toNamed(AppRoutes.forgotPassword);
-                          },
-                          child: Text(
-                            "Forgot Password?",
-                            style: theme.textTheme.bodyLarge?.copyWith(
-                              color: theme.colorScheme.primary,
-                              fontSize: 16,
-                            ),
-                          )),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: size.height * 0.05),
-            FadeInUp(
-              delay: const Duration(milliseconds: 500),
-              child: Column(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      loginController.login();
-                    },
-                    child: Obx(
-                      () => Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: theme.colorScheme.primary),
-                          color: theme.colorScheme.primary,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        height: size.height * 0.065,
-                        width: size.width * 0.9,
-                        child: loginController.isLoading.value
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                color: Colors.white,
-                              ))
-                            : Center(
-                                child: Text(
-                                "Login",
-                                style: theme.textTheme.bodyLarge?.copyWith(
-                                  color: theme.colorScheme.surface,
-                                  fontSize: 16,
-                                ),
-                              )),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: size.height * 0.03),
-            FadeInUp(
-              delay: const Duration(milliseconds: 500),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: Text(
-                      "Don't have an account? ",
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        color: theme.colorScheme.onSurface,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.signupPage);
-                    },
-                    child: Container(
+              SizedBox(height: size.height * 0.03),
+              FadeInUp(
+                delay: const Duration(milliseconds: 500),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: size.width * 0.9,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       child: Text(
-                        "Register",
+                        "Email",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
+                    _buildTextField(
+                      theme: theme,
+                      controller: loginController.emailController,
+                      label: "Email",
+                      icon: Icons.email,
+                      hintText: "Enter your email",
+                      keyboardType: TextInputType.emailAddress,
+                      size: size,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.03,
+                    ),
+                    Container(
+                      width: size.width * 0.9,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      child: Text(
+                        "Password",
+                        style: theme.textTheme.titleLarge,
+                      ),
+                    ),
+                    _buildPasswordTextField(
+                      theme: theme,
+                      controller: loginController.passwordController,
+                      label: "Password",
+                      icon: Icons.lock,
+                      hintText: "Enter your password",
+                      keyboardType: TextInputType.visiblePassword,
+                      size: size,
+                    ),
+                    Container(
+                      width: size.width * 0.9,
+                      child: Align(
+                        alignment: AlignmentDirectional.centerEnd,
+                        child: TextButton(
+                            onPressed: () {
+                              Get.toNamed(AppRoutes.forgotPassword);
+                            },
+                            child: Text(
+                              "Forgot Password?",
+                              style: theme.textTheme.bodyLarge?.copyWith(
+                                color: theme.colorScheme.primary,
+                                fontSize: 16,
+                              ),
+                            )),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: size.height * 0.05),
+              FadeInUp(
+                delay: const Duration(milliseconds: 500),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        loginController.login();
+                      },
+                      child: Obx(
+                        () => Container(
+                          decoration: BoxDecoration(
+                            border:
+                                Border.all(color: theme.colorScheme.primary),
+                            color: theme.colorScheme.primary,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          height: size.height * 0.065,
+                          width: size.width * 0.9,
+                          child: loginController.isLoading.value
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ))
+                              : Center(
+                                  child: Text(
+                                  "Login",
+                                  style: theme.textTheme.bodyLarge?.copyWith(
+                                    color: theme.colorScheme.surface,
+                                    fontSize: 16,
+                                  ),
+                                )),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: size.height * 0.03),
+              FadeInUp(
+                delay: const Duration(milliseconds: 500),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Text(
+                        "Don't have an account? ",
                         style: theme.textTheme.bodyLarge?.copyWith(
-                          color: theme.colorScheme.primary,
+                          color: theme.colorScheme.onSurface,
                           fontSize: 16,
                         ),
                       ),
                     ),
-                  ),
-                ],
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.signupPage);
+                      },
+                      child: Container(
+                        child: Text(
+                          "Register",
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: theme.colorScheme.primary,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: size.height * 0.05),
-          ],
+              SizedBox(height: size.height * 0.05),
+            ],
+          ),
         ),
       ),
     );

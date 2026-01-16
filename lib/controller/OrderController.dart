@@ -61,7 +61,6 @@ class OrderController extends GetxController {
           .toList();
     }
 
-    // Filter by Search Query (Order ID or Product Name)
     if (searchQuery.value.isNotEmpty) {
       final query = searchQuery.value.toLowerCase();
       orders = orders.where((order) {

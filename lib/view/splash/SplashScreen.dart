@@ -43,25 +43,27 @@ class _SplashScreenState extends State<SplashScreen>
     final Size size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
 
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      body: Container(
-        width: double.infinity,
-        child: FadeTransition(
-          opacity: _animation,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(20),
-                child: Image.asset(
-                  "assets/images/light_logo.png",
-                  height: size.height * 0.75,
-                  width: size.width * 0.75,
-                  fit: BoxFit.contain,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        body: Container(
+          width: double.infinity,
+          child: FadeTransition(
+            opacity: _animation,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  child: Image.asset(
+                    "assets/images/light_logo.png",
+                    height: size.height * 0.75,
+                    width: size.width * 0.75,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

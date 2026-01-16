@@ -14,7 +14,7 @@ class CategoryList extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final theme = Theme.of(context);
     return SizedBox(
-      height: size.height * 0.15,
+      height: size.height * 0.2,
       child: Obx(() {
         if (categoryController.isLoading.value) {
           return Center(child: CircularProgressIndicator());
@@ -51,8 +51,8 @@ class CategoryList extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                width: 60,
-                height: 60,
+                width: size.width * 0.3,
+                height: size.height * 0.08,
                 padding: imageUrl == null
                     ? const EdgeInsets.all(15)
                     : EdgeInsets.zero,

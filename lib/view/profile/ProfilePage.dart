@@ -18,192 +18,195 @@ class ProfilePage extends StatelessWidget {
     final theme = Theme.of(context);
     final userController = Get.put(UserController());
 
-    return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
-      appBar: AppBar(
-        scrolledUnderElevation: 0,
-        title: Text(
-          'My Account',
-          style: GoogleFonts.roboto(
-            fontWeight: FontWeight.w500,
-            fontSize: 20,
-            color: theme.colorScheme.onPrimary,
-          ),
-        ),
-        backgroundColor: theme.colorScheme.primary,
-        elevation: 0,
-      ),
-      body: Obx(() {
-        if (userController.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        final user = userController.user.value;
-        return Column(
-          children: [
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.only(
-                  top: 15, bottom: 30, left: 20, right: 20),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primary,
-                borderRadius: const BorderRadius.vertical(
-                  bottom: Radius.circular(24),
-                ),
-              ),
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 2),
-                    ),
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.grey.shade200,
-                      backgroundImage: _getImageProvider(user?.profileImage),
-                      child: _getImageProvider(user?.profileImage) == null
-                          ? Icon(Icons.person,
-                              size: 40, color: theme.colorScheme.primary)
-                          : null,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    user?.name ?? 'User Name',
-                    style: GoogleFonts.poppins(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                      color: theme.colorScheme.onPrimary,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    user?.phoneNumber ?? '',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      color: theme.colorScheme.onPrimary.withOpacity(0.8),
-                    ),
-                  ),
-                ],
-              ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor,
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          title: Text(
+            'My Account',
+            style: GoogleFonts.roboto(
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+              color: theme.colorScheme.onPrimary,
             ),
+          ),
+          backgroundColor: theme.colorScheme.primary,
+          elevation: 0,
+        ),
+        body: Obx(() {
+          if (userController.isLoading.value) {
+            return const Center(child: CircularProgressIndicator());
+          }
 
-            // 2. Scrollable Content
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
+          final user = userController.user.value;
+          return Column(
+            children: [
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.only(
+                    top: 15, bottom: 30, left: 20, right: 20),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.primary,
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(24),
+                  ),
+                ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Quick Actions Grid
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildActionCard(
-                            context,
-                            icon: Icons.inventory_2_outlined,
-                            title: "My Orders",
-                            subtitle: "Track & manage",
-                            color: Colors.blue.shade50,
-                            iconColor: Colors.blue,
-                            onTap: () =>
-                                Get.toNamed(AppRoutes.orderHistoryPage),
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: _buildActionCard(
-                            context,
-                            icon: Icons.favorite_border,
-                            title: "Wishlist",
-                            subtitle: "Your favorites",
-                            color: Colors.pink.shade50,
-                            iconColor: Colors.pink,
-                            onTap: () => Get.toNamed(AppRoutes.wishlistPage),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 30),
-
-                    // Account Settings Section
-                    Text(
-                      "Account Settings",
-                      style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: theme.colorScheme.onSurface,
+                    Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.grey.shade200,
+                        backgroundImage: _getImageProvider(user?.profileImage),
+                        child: _getImageProvider(user?.profileImage) == null
+                            ? Icon(Icons.person,
+                                size: 40, color: theme.colorScheme.primary)
+                            : null,
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: theme.colorScheme.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                        border: Border.all(color: Colors.grey.shade100),
-                      ),
-                      child: Column(
-                        children: [
-                          _buildModernListTile(
-                            context,
-                            icon: Icons.person_outline_rounded,
-                            title: "Edit Profile",
-                            onTap: () => _showEditProfileBottomSheet(
-                                context, userController),
-                          ),
-                          Divider(height: 1, color: Colors.grey.shade100),
-                          _buildModernListTile(
-                            context,
-                            icon: Icons.location_on_outlined,
-                            title: "Saved Addresses",
-                            onTap: () => Get.to(() => const AddressPage()),
-                          ),
-                        ],
+                    Text(
+                      user?.name ?? 'User Name',
+                      style: GoogleFonts.poppins(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w600,
+                        color: theme.colorScheme.onPrimary,
                       ),
                     ),
-
-                    const SizedBox(height: 40),
-
-                    // Logout Button
-                    SizedBox(
-                      width: double.infinity,
-                      child: OutlinedButton(
-                        onPressed: () => AuthService().logout(),
-                        style: OutlinedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          side: BorderSide(
-                              color: theme.colorScheme.error.withOpacity(0.5)),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                        ),
-                        child: Text(
-                          "Log Out",
-                          style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: theme.colorScheme.error,
-                          ),
-                        ),
+                    const SizedBox(height: 4),
+                    Text(
+                      user?.phoneNumber ?? '',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        color: theme.colorScheme.onPrimary.withOpacity(0.8),
                       ),
                     ),
-                    const SizedBox(height: 20),
                   ],
                 ),
               ),
-            ),
-          ],
-        );
-      }),
+
+              // 2. Scrollable Content
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Quick Actions Grid
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildActionCard(
+                              context,
+                              icon: Icons.inventory_2_outlined,
+                              title: "My Orders",
+                              subtitle: "Track & manage",
+                              color: Colors.blue.shade50,
+                              iconColor: Colors.blue,
+                              onTap: () =>
+                                  Get.toNamed(AppRoutes.orderHistoryPage),
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: _buildActionCard(
+                              context,
+                              icon: Icons.favorite_border,
+                              title: "Wishlist",
+                              subtitle: "Your favorites",
+                              color: Colors.pink.shade50,
+                              iconColor: Colors.pink,
+                              onTap: () => Get.toNamed(AppRoutes.wishlistPage),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+
+                      // Account Settings Section
+                      Text(
+                        "Account Settings",
+                        style: GoogleFonts.poppins(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: theme.colorScheme.onSurface,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surface,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.05),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                          border: Border.all(color: Colors.grey.shade100),
+                        ),
+                        child: Column(
+                          children: [
+                            _buildModernListTile(
+                              context,
+                              icon: Icons.person_outline_rounded,
+                              title: "Edit Profile",
+                              onTap: () => _showEditProfileBottomSheet(
+                                  context, userController),
+                            ),
+                            Divider(height: 1, color: Colors.grey.shade100),
+                            _buildModernListTile(
+                              context,
+                              icon: Icons.location_on_outlined,
+                              title: "Saved Addresses",
+                              onTap: () => Get.to(() => const AddressPage()),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      const SizedBox(height: 40),
+
+                      // Logout Button
+                      SizedBox(
+                        width: double.infinity,
+                        child: OutlinedButton(
+                          onPressed: () => AuthService().logout(),
+                          style: OutlinedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            side: BorderSide(
+                                color:
+                                    theme.colorScheme.error.withOpacity(0.5)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: Text(
+                            "Log Out",
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: theme.colorScheme.error,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          );
+        }),
+      ),
     );
   }
 
