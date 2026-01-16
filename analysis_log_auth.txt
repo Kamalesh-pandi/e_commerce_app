@@ -1,0 +1,30 @@
+﻿Analyzing 3 items...                                            
+
+   info - The file name 'ForgetPasswordController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\ForgetPasswordController.dart:1:1 - file_names
+   info - The file name 'LoginController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\LoginController.dart:1:1 - file_names
+   info - The file name 'OtpVerifyController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\OtpVerifyController.dart:1:1 - file_names
+   info - The file name 'ResetPasswordController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\ResetPasswordController.dart:1:1 - file_names
+   info - The file name 'SignupController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\SignupController.dart:1:1 - file_names
+   info - The import of 'package:get/get_rx/get_rx.dart' is unnecessary because all of the used elements are also provided by the import of 'package:get/get.dart' - lib\controller\auth\SignupController.dart:3:8 - unnecessary_import
+   info - The file name 'AuthService.dart' isn't a lower_case_with_underscores identifier - lib\service\AuthService.dart:1:1 - file_names
+  error - The body might complete normally, causing 'null' to be returned, but the return type, 'FutureOr<Map<String, dynamic>>', is a potentially non-nullable type - lib\service\AuthService.dart:9:31 - body_might_complete_normally
+   info - The file name 'ForgotPassword.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\ForgotPassword.dart:1:1 - file_names
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\ForgotPassword.dart:146:12 - sized_box_for_whitespace
+   info - The file name 'LoginPage.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\LoginPage.dart:1:1 - file_names
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\LoginPage.dart:43:22 - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\LoginPage.dart:132:19 - sized_box_for_whitespace
+   info - Unnecessary instance of 'Container' - lib\view\auth\LoginPage.dart:188:19 - avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\view\auth\LoginPage.dart:201:28 - avoid_unnecessary_containers
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\LoginPage.dart:229:12 - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\LoginPage.dart:264:13 - sized_box_for_whitespace
+   info - The file name 'OtpVerifyPage.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\OtpVerifyPage.dart:1:1 - file_names
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\OtpVerifyPage.dart:43:13 - sized_box_for_whitespace
+   info - Unnecessary instance of 'Container' - lib\view\auth\OtpVerifyPage.dart:101:28 - avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\view\auth\OtpVerifyPage.dart:147:25 - avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\view\auth\OtpVerifyPage.dart:160:34 - avoid_unnecessary_containers
+   info - The file name 'ResetPassword.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\ResetPassword.dart:1:1 - file_names
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\ResetPassword.dart:148:8 - sized_box_for_whitespace
+   info - The file name 'SignupPage.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\SignupPage.dart:1:1 - file_names
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\SignupPage.dart:238:12 - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\SignupPage.dart:273:13 - sized_box_for_whitespace
+

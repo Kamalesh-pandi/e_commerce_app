@@ -1,0 +1,37 @@
+﻿Analyzing 2 items...                                            
+
+   info - The file name 'ForgetPasswordController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\ForgetPasswordController.dart:1:1 - file_names
+   info - The file name 'LoginController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\LoginController.dart:1:1 - file_names
+   info - The file name 'OtpVerifyController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\OtpVerifyController.dart:1:1 - file_names
+   info - The file name 'ResetPasswordController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\ResetPasswordController.dart:1:1 - file_names
+   info - The file name 'SignupController.dart' isn't a lower_case_with_underscores identifier - lib\controller\auth\SignupController.dart:1:1 - file_names
+   info - The file name 'ForgotPassword.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\ForgotPassword.dart:1:1 - file_names
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\ForgotPassword.dart:146:12 - sized_box_for_whitespace
+   info - The file name 'LoginPage.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\LoginPage.dart:1:1 - file_names
+   info - The import of 'package:flutter/rendering.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' - lib\view\auth\LoginPage.dart:5:8 - unnecessary_import
+   info - The import of 'package:flutter/widgets.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' - lib\view\auth\LoginPage.dart:6:8 - unnecessary_import
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\LoginPage.dart:45:22 - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\LoginPage.dart:134:19 - sized_box_for_whitespace
+   info - Unnecessary instance of 'Container' - lib\view\auth\LoginPage.dart:190:19 - avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\view\auth\LoginPage.dart:203:28 - avoid_unnecessary_containers
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\LoginPage.dart:231:12 - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\LoginPage.dart:266:13 - sized_box_for_whitespace
+   info - The file name 'OtpVerifyPage.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\OtpVerifyPage.dart:1:1 - file_names
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\OtpVerifyPage.dart:43:13 - sized_box_for_whitespace
+   info - Unnecessary instance of 'Container' - lib\view\auth\OtpVerifyPage.dart:101:28 - avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\view\auth\OtpVerifyPage.dart:147:25 - avoid_unnecessary_containers
+   info - Unnecessary instance of 'Container' - lib\view\auth\OtpVerifyPage.dart:160:34 - avoid_unnecessary_containers
+   info - The file name 'ResetPassword.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\ResetPassword.dart:1:1 - file_names
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\ResetPassword.dart:147:12 - sized_box_for_whitespace
+   info - The file name 'SignupPage.dart' isn't a lower_case_with_underscores identifier - lib\view\auth\SignupPage.dart:1:1 - file_names
+   info - The import of 'package:flutter/cupertino.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' - lib\view\auth\SignupPage.dart:3:8 - unnecessary_import
+   info - The import of 'package:flutter/widgets.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' - lib\view\auth\SignupPage.dart:5:8 - unnecessary_import
+   info - The private field _nameController could be 'final' - lib\view\auth\SignupPage.dart:19:25 - prefer_final_fields
+   info - The private field _phoneController could be 'final' - lib\view\auth\SignupPage.dart:20:25 - prefer_final_fields
+   info - The private field _confirmPasswordController could be 'final' - lib\view\auth\SignupPage.dart:21:25 - prefer_final_fields
+   info - The private field _emailController could be 'final' - lib\view\auth\SignupPage.dart:22:25 - prefer_final_fields
+   info - The private field _passwordController could be 'final' - lib\view\auth\SignupPage.dart:23:25 - prefer_final_fields
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\SignupPage.dart:49:22 - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\SignupPage.dart:244:12 - sized_box_for_whitespace
+   info - Use a 'SizedBox' to add whitespace to a layout - lib\view\auth\SignupPage.dart:278:12 - sized_box_for_whitespace
+
