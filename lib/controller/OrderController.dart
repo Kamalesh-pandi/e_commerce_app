@@ -7,9 +7,13 @@ import 'package:e_commerce_app/routes/AppRoutes.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:e_commerce_app/model/order_model.dart';
 
+import 'package:e_commerce_app/controller/UserController.dart';
+import 'package:e_commerce_app/model/user_model.dart';
+
 class OrderController extends GetxController {
   final OrderService _orderService = OrderService();
   final CartController _cartController = Get.find<CartController>();
+  final UserController _userController = Get.find<UserController>();
   late Razorpay _razorpay;
 
   var isLoading = false.obs;
@@ -119,6 +123,22 @@ class OrderController extends GetxController {
   }
 
   void openRazorpay(double amount, String orderId) {
+    String contact = _userController.user.value?.phoneNumber ?? '';
+    String email = _userController.user.value?.email ?? '';
+
+    if (_pendingAddressId != null &&
+        _userController.user.value?.addresses != null) {
+      try {
+        final address = _userController.user.value!.addresses!.firstWhere(
+            (a) => a.id.toString() == _pendingAddressId,
+            orElse: () => Address());
+        if (address.phoneNumber != null && address.phoneNumber!.isNotEmpty) {
+          contact = address.phoneNumber!;
+        }
+      } catch (e) {
+      }
+    }
+
     var options = {
       'key': 'rzp_test_RyuVrPFZgGCZrX',
       'amount': (amount * 100).toInt(),
@@ -127,10 +147,7 @@ class OrderController extends GetxController {
       'order_id': orderId,
       'retry': {'enabled': true, 'max_count': 1},
       'send_sms_hash': true,
-      'prefill': {
-        'contact': '9790608692',
-        'email': 'kamaleshpandi07@gmail.com'
-      },
+      'prefill': {'contact': contact, 'email': email},
       'external': {
         'wallets': ['paytm']
       }

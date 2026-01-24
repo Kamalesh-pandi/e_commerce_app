@@ -12,8 +12,9 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orderController = Get.put(OrderController());
+    final userController = Get.put(UserController());
     final cartController = Get.put(CartController());
+    final orderController = Get.put(OrderController());
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
 
@@ -113,7 +114,7 @@ class CartPage extends StatelessWidget {
   }
 
   Widget _buildAddressStrip(ThemeData theme) {
-    final userController = Get.put(UserController());
+    final userController = Get.find<UserController>();
 
     return Obx(() {
       final user = userController.user.value;
